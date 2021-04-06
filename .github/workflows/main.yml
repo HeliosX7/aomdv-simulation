@@ -33,7 +33,10 @@ jobs:
       - name: Build ns3 files
         run: ./waf
       - name: Run sample simulation
-        run: /waf --run "scratch/finalsimulationGrid --sourceNode=0 --sinkNode=10 --numPackets=2000"
+        run: ./waf --run "scratch/finalsimulationGrid --sourceNode=0 --sinkNode=10 --numPackets=2000"
+      - name: Run bash script simulation
+        run: chmod +x sim_test.sh | ./sim_test.sh
+        #run: ./waf --run "scratch/finalsimulationGrid --sourceNode=0 --sinkNode=10 --numPackets=2000"
       - name: Upload Artifact(output csv)
         uses: actions/upload-artifact@v2
         with: 
