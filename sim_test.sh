@@ -9,5 +9,5 @@ lenSize=${#numPackets[@]}
 
 for ((i=0; i<2;i++))
 do
-	`./waf --run "scratch/finalsimulationGrid --sourceNode=${sourceNodeList[i]} --sinkNode=${sinkNodeList[i]} --numPackets=${numPackets}"`
+	./waf --run "scratch/finalsimulationGrid --sourceNode=${sourceNodeList[i]} --sinkNode=${sinkNodeList[i]} --numPackets=${numPackets}"
 done
