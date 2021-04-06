@@ -8,5 +8,6 @@ numPackets=2000
 
 for ((i=0; i<$lenlist;i++))
 do
+    echo "<<< iteration ${i} >>>"
 	./waf --run "scratch/finalsimulationGrid --sourceNode=${sourceNodeList[i]} --sinkNode=${sinkNodeList[i]} --numPackets=${numPackets}"
 done
