@@ -27,9 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Make temp dir
-        run: mkdir downloads
+        run: mkdir downloads | chmod +x autosimulationGrid.sh
       - name: Run bash script simulation(50 pairs)
-        run: chmod +x autosimulationGrid.sh | ./autosimulationGrid.sh
+        run: ./autosimulationGrid.sh
 
       # Runs a set of commands using the runners shell
       # - name: Bash script
