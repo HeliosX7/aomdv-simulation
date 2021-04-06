@@ -42,8 +42,8 @@
 
 #define INFINITY2 0xff
 #define INFINITY3 9999999
-#define AOMDV_MAX_PATHS 4
-#define AOMDV_LOAD_BALANCING_STRATEGY 2 //0 - SQUARED DISTANCE , 1 - MRE, 2 - DELAY 
+#define AOMDV_MAX_PATHS 3
+#define AOMDV_LOAD_BALANCING_STRATEGY 0 //0 - SQUARED DISTANCE , 1 - MRE, 2 - DELAY 
 
 namespace ns3 {
 namespace aomdv {
