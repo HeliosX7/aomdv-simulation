@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Make temp dir
-        run: cd scratch | mkdir downloads | cd 
+        run: mkdir downloads
       - name: Configure ns3
         run: ./waf configure --enable-examples 
       - name: Build ns3 files
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with: 
           name: grid-assets
-          path: scratch/downloads
+          path: downloads
       # Runs a set of commands using the runners shell
      # - name: Bash script
      #   run: chmod +x sim_test.sh | ./sim_test.sh
