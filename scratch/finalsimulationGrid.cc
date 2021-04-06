@@ -361,7 +361,7 @@ main (int argc, char *argv[])
   NS_LOG_UNCOND("Energy Consumption = "<< totalInitialEnergy-remainingEnergy);
   
   std::fstream fout;
-  fout.open("downloads/grid_0_0.csv", std::ios::out | std::ios::app);
+  fout.open("downloads/grid_mp5_lbs2.csv", std::ios::out | std::ios::app);
   
   fout << sourceNode << ", "
        << sinkNode << ", "
