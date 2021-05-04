@@ -194,7 +194,7 @@ main (int argc, char *argv[])
   uint32_t sinkNode =numNodes-1 , sinkNode2 = numNodes-2;
   double interval = 0.1; // seconds
   bool verbose = false;
-  bool tracing = true;
+  bool tracing = false;
 
   CommandLine cmd;
   cmd.AddValue ("phyMode", "Wifi Phy mode", phyMode);
@@ -373,7 +373,7 @@ main (int argc, char *argv[])
 
   
   std::fstream fout;
-  fout.open("downloads/sim2_random_mp5_lbs2.csv", std::ios::out | std::ios::app);
+  fout.open("downloads/sim2_random_mp5_lbs0.csv", std::ios::out | std::ios::app);
   
   fout << sourceNode << ", "
        << sinkNode << ", "

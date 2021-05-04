@@ -11,6 +11,6 @@ for ((j=0; j<$lenSize;j++))
 do	
 	for ((i=0; i<1;i++))
 	do
-		`./waf --run "scratch/finalsimulationRandom --sourceNode=${sourceNodeList[i]} --sinkNode=${sinkNodeList[i]} --numPackets=${numPackets[j]}"`
+		`./waf --run "scratch/finalsimulationGrid --sourceNode=${sourceNodeList[i]} --sinkNode=${sinkNodeList[i]} --numPackets=${numPackets[j]}"`
 	done
 done

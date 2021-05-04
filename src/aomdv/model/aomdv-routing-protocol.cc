@@ -1037,7 +1037,7 @@ RoutingProtocol::SendRequest (Ipv4Address dst)
   rreqHeader.SetY(pos.second);
   rreqHeader.SetSquaredDistance(0);
   rreqHeader.SetTimeStamp(Simulator::Now().GetNanoSeconds());
-  //NS_LOG_UNCOND("RREQ SENT FROM ORIGIN WITH TTL = " << ttl<< " at time = " << Simulator::Now().GetSeconds());
+  NS_LOG_UNCOND("RREQ SENT FROM ORIGIN WITH TTL = " << ttl<< " at time = " << Simulator::Now().GetSeconds());
   //now workingNS_LOG_UNCOND((int)rreqHeader.GetHopCount() << "yo");//bug not working
   // Send RREQ as subnet directed broadcast from each interface used by aomdv
   for (std::map<Ptr<Socket>, Ipv4InterfaceAddress>::const_iterator j =
@@ -1222,7 +1222,6 @@ RoutingProtocol::UpdateRouteToNeighbor (Ipv4Address sender, Ipv4Address receiver
     }
   else
     {
-      if(toNeighbor.GetFlag () == IN_SEARCH) return;
       Ptr<NetDevice> dev = m_ipv4->GetNetDevice (m_ipv4->GetInterfaceForAddress (receiver));
       std::vector<RoutingTableEntry::Path> paths;
       bool validPath = false;
@@ -1340,7 +1339,7 @@ RoutingProtocol::RecvRequest (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address s
   {
     if (IsMyOwnAddress (dst))
     {
-      //NS_LOG_UNCOND("rrec reveived at " << receiver << " from " << src);
+      NS_LOG_UNCOND("rrec reveived at " << receiver << " from " << src);
       if (toOrigin.GetFlag () == VALID)
       {
         if ((reversePath = toOrigin.PathLookupDisjoint (src, rreqHeader.GetFirstHop ())))
@@ -1520,7 +1519,7 @@ RoutingProtocol::RecvRequest (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address s
   if (IsMyOwnAddress (rreqHeader.GetDst ()))
     {
       m_routingTable.LookupRoute (origin, toOrigin);
-      //NS_LOG_UNCOND ("Send reply since I am the destination" << src << " " << toOrigin.GetNumberofPaths()<< "at time : "<< Simulator::Now().GetSeconds());
+      NS_LOG_UNCOND ("Send reply since I am the destination" << src << " " << toOrigin.GetNumberofPaths()<< "at time : "<< Simulator::Now().GetSeconds());
       // NS_LOG_UNCOND ("LAST HOP - " << src << " firstHop = " << rreqHeader.GetFirstHop ());
       //NS_LOG_UNCOND ("NEXT HOP IN current PATH = " << toOrigin.PathFind()->GetNextHop());
       //NS_LOG_UNCOND ("rreq id = " << rreqHeader.GetId());
@@ -1544,7 +1543,7 @@ RoutingProtocol::RecvRequest (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address s
 
       if (toDst.PathFind ()->GetNextHop () == src || toDst.PathFind ()->GetNextHop () == toOrigin.PathFind ()->GetNextHop())//toDst.PathFind ()->GetNextHop ()
         {
-          //NS_LOG_UNCOND ("Drop RREQ from " << src << ", dest next hop " << toDst.PathFind()->GetNextHop ());
+          NS_LOG_UNCOND ("Drop RREQ from " << src << ", dest next hop " << toDst.PathFind()->GetNextHop ());
           return;
         }
         else{
@@ -1806,7 +1805,7 @@ void
 RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sender)
 {
   NS_LOG_FUNCTION (this << " src " << sender);
-  //NS_LOG_UNCOND("START RECVREPLY at " << receiver);
+  NS_LOG_UNCOND("START RECVREPLY at " << receiver);
   RrepHeader rrepHeader;
   p->RemoveHeader (rrepHeader);
   IdCache::UniqueId* b = NULL;
@@ -1860,7 +1859,7 @@ RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sen
   if (!m_routingTable.LookupRoute (dst, toDst))
     {
     // The forward route for this destination is created if it does not already exist.
-      //NS_LOG_UNCOND ("add new route");
+      NS_LOG_UNCOND ("add new route");
       m_routingTable.AddRoute (newEntry);
       m_routingTable.LookupRoute(dst, toDst);
     }
@@ -1877,7 +1876,7 @@ RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sen
     //NS_LOG_UNCOND("number of paths before= " << toDst.GetNumberofPaths() );
     //TODO WHY NS_LOG_UNCOND()
     //NS_LOG_UNCOND("Check middle of recv reply , rrep seq no = " << rrepHeader.GetDstSeqno () << " dst seq no = " << toDst.GetSeqNo ());
-    //NS_LOG_UNCOND(rrepHeader.GetDstSeqno () << " " << toDst.GetSeqNo ());
+    NS_LOG_UNCOND(rrepHeader.GetDstSeqno () << " " << toDst.GetSeqNo ());
     if ( (int32_t (rrepHeader.GetDstSeqno ()) - int32_t (toDst.GetSeqNo ())) > 0)
       {//TODO GETNUMBER OF PATHS = 0 DOESNT MEAN WE CAN ADD THIS
         toDst.SetValidSeqNo(rrepHeader.GetDstSeqno() != 0);
@@ -1891,7 +1890,7 @@ RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sen
                                         m_ipv4->GetAddress (m_ipv4->GetInterfaceForAddress (receiver), 0), rrepHeader.GetMRE (),
                                         squaredDistance, delay);
   // CHANGE
-        //NS_LOG_UNCOND("ath insert next hop = " << forwardPath->GetNextHop() << "last hop = " << forwardPath->GetLastHop());
+        NS_LOG_UNCOND("ath insert next hop = " << forwardPath->GetNextHop() << "last hop = " << forwardPath->GetLastHop());
         toDst.SetLastHopCount (toDst.PathGetMaxHopCount ());
         
       }
@@ -1935,7 +1934,7 @@ RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sen
       }
     else          
       {
-        //NS_LOG_UNCOND("IS THIS THE ERROR " << rrepHeader.GetDstSeqno () << " " << toDst.GetSeqNo ());
+        NS_LOG_UNCOND("IS THIS THE ERROR " << rrepHeader.GetDstSeqno () << " " << toDst.GetSeqNo ());
         return;
       }
     toDst.SetLifeTime(m_activeRouteTimeout);
@@ -2064,7 +2063,7 @@ RoutingProtocol::RecvReply (Ptr<Packet> p, Ipv4Address receiver, Ipv4Address sen
   p->RemovePacketTag (tag);
   if (tag.GetTtl () < 2)
     {
-      //NS_LOG_UNCOND ("TTL exceeded. Drop RREP destination " << dst << " origin " << rrepHeader.GetOrigin () << " TTL  = " << (int)tag.GetTtl());
+      NS_LOG_UNCOND ("TTL exceeded. Drop RREP destination " << dst << " origin " << rrepHeader.GetOrigin () << " TTL  = " << (int)tag.GetTtl());
       return;//TODO THIS IS HAPPENING IN THE FIRST HOP ITSELF
     }
   Ptr<Packet> packet = Create<Packet> ();
@@ -2096,7 +2095,7 @@ RoutingProtocol::RecvReplyAck (Ipv4Address neighbor)
 void
 RoutingProtocol::ProcessHello (RrepHeader const & rrepHeader, Ipv4Address receiver )
 {
-  //NS_LOG_UNCOND (this << "from " << rrepHeader.GetDst ());
+  NS_LOG_UNCOND (this << "from " << rrepHeader.GetDst ());
   /*
    *  Whenever a node receives a Hello message from a neighbor, the node
    * SHOULD make sure that it has an active route to the neighbor, and
@@ -2179,7 +2178,7 @@ RoutingProtocol::RecvError (Ptr<Packet> p, Ipv4Address src )
           RoutingTableEntry toDst;
           m_routingTable.LookupRoute (i->first, toDst);
           toDst.GetPrecursors (precursors);
-          //NS_LOG_UNCOND(precursors.size());
+          NS_LOG_UNCOND(precursors.size());
           ++i;
         }
     }
