@@ -373,7 +373,7 @@ main (int argc, char *argv[])
 
   
   std::fstream fout;
-  fout.open("downloads/sim2_random_mp5_lbs1.csv", std::ios::out | std::ios::app);
+  fout.open("downloads/sim2_random_mp5_lbs2.csv", std::ios::out | std::ios::app);
   
   fout << sourceNode << ", "
        << sinkNode << ", "
