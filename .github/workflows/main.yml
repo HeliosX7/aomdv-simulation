@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Make temp dir
-        run: mkdir downloads | chmod +x autosimulationGrid.sh
+        run: mkdir downloads
       - name: Configure ns3
         run: ./waf configure --enable-examples
       - name: Compile ns3 files
