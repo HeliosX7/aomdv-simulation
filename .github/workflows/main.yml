@@ -28,15 +28,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Make temp dir
         run: mkdir downloads
+      
       - name: Configure ns3
         run: ./waf configure --enable-examples
+      
       - name: Compile ns3 files
         run: ./waf
-      - name: Run simulation(multi)
-        run: ./waf --run scratch/sim2_random
-      #- name: Run bash script simulation(50 pairs)
-      #  run: ./autosimulationGrid.sh
-        #run: ./waf --run "scratch/finalsimulationGrid --sourceNode=0 --sinkNode=10 --numPackets=2000"
+
+      - name: Run bash script simulation(50 pairs)
+        run: ./autosimulationGrid.sh
+
       - name: Upload Artifact(output csv)
         uses: actions/upload-artifact@v2
         with:
@@ -46,3 +47,6 @@ jobs:
       # Runs a set of commands using the runners shell
       # - name: Bash script
       #   run: chmod +x sim_test.sh | ./sim_test.sh
+      #- name: Run simulation(multi)
+      #  run: ./waf --run scratch/sim2_random
+      #  run: ./waf --run "scratch/finalsimulationGrid --sourceNode=0 --sinkNode=10 --numPackets=2000"
